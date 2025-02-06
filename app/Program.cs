@@ -1,8 +1,5 @@
 using microsoft_agent_sk;
 using Microsoft.Agents.Protocols.Primitives;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using microsoft_agent_sk.Agents;
 using Microsoft.SemanticKernel;
 
@@ -29,7 +26,7 @@ builder.Services.AddAzureOpenAIChatCompletion(
     endpoint: endpoint,
     apiKey: apiKey);
 
-builder.Services.AddTransient<TravelAgent>();
+builder.Services.AddTransient<WeatherAgent>();
 
 builder.AddBot<IBot, BotHandler>();
 
