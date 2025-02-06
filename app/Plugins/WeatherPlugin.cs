@@ -21,6 +21,7 @@ public class WeatherPlugin
     [return: Description("A weather forecast in JSON format")]
     public async Task<string> RetrieveWeatherForecastAsync([Description("Location coordinates")] LocationPoint locationPoint, KernelArguments arguments)
     {
+        Console.WriteLine("RetrieveWeatherForecast...");
         using var httpClient = _httpClientFactory.CreateClient("WeatherAPI");
         httpClient.DefaultRequestHeaders.Add("User-Agent", "app");
 
