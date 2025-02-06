@@ -20,17 +20,14 @@ builder.Services.AddHttpClient();
 builder.Services.AddKernel();
 
 // Register the AI service of your choice. AzureOpenAI and OpenAI are demonstrated...
-if (builder.Configuration.GetSection("Connections:BotServiceConnection:Settings:AIServices:AzureOpenAI").GetValue<bool>("UseAzureOpenAI"))
-{
-    var deploymentName = builder.Configuration.GetValue<string>("AzureOpenAIApiKey") ?? throw new ArgumentNullException("AzureOpenAIApiKey");
-    var endpoint = builder.Configuration.GetValue<string>("AzureOpenAIEndpoint") ?? throw new ArgumentNullException("AzureOpenAIEndpoint");
-    var apiKey = builder.Configuration.GetValue<string>("AzureOpenAIApiKey") ?? throw new ArgumentNullException("AzureOpenAIApiKey");
+var deploymentName = builder.Configuration.GetValue<string>("AzureOpenAIApiKey") ?? throw new ArgumentNullException("AzureOpenAIApiKey");
+var endpoint = builder.Configuration.GetValue<string>("AzureOpenAIEndpoint") ?? throw new ArgumentNullException("AzureOpenAIEndpoint");
+var apiKey = builder.Configuration.GetValue<string>("AzureOpenAIApiKey") ?? throw new ArgumentNullException("AzureOpenAIApiKey");
 
-    builder.Services.AddAzureOpenAIChatCompletion(
-        deploymentName: deploymentName,
-        endpoint: endpoint,
-        apiKey: apiKey);
-}
+builder.Services.AddAzureOpenAIChatCompletion(
+    deploymentName: deploymentName,
+    endpoint: endpoint,
+    apiKey: apiKey);
 
 builder.Services.AddTransient<TravelAgent>();
 
