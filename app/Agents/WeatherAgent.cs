@@ -36,7 +36,7 @@ namespace microsoft_agent_sk.Agents
             }
             """;
 
-        public WeatherAgent(Kernel kernel)
+        public WeatherAgent(Kernel kernel, IServiceProvider sp)
         {
             this._kernel = kernel;
             this._chatHistory = [];
@@ -56,7 +56,7 @@ namespace microsoft_agent_sk.Agents
                 };
 
             // Give the agent some tools to work with
-            this._agent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromType<WeatherPlugin>());
+            this._agent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromType<WeatherPlugin>(serviceProvider: sp));
         }
 
         public async Task<FlightResponse> InvokeAgentAsync(string input)

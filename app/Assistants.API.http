@@ -1,0 +1,11 @@
+@baseUrl = https://localhost:32771
+
+
+// C1
+
+POST {{baseUrl}}/api/agent
+Content-Type: application/json
+
+{
+}
+
