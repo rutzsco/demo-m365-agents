@@ -9,9 +9,12 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>();
 }
-
-builder.Services.AddControllers();
 builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("WeatherAPI", client =>
+{
+    client.BaseAddress = new Uri("https://api.weather.gov/");
+});
+builder.Services.AddControllers();
 
 // Register Semantic Kernel
 builder.Services.AddKernel();
