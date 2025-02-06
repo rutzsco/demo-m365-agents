@@ -75,6 +75,8 @@ namespace microsoft_agent_sk.Agents
             try
             {
                 var resultContent = sb.ToString();
+                Console.WriteLine("Agent Response:");
+                Console.WriteLine(resultContent);   
                 var result = JsonSerializer.Deserialize<FlightResponse>(resultContent);
                 this.retryCount = 0;
                 return result;
