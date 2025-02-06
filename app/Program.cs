@@ -20,7 +20,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddKernel();
 
 // Register the AI service of your choice. AzureOpenAI and OpenAI are demonstrated...
-var deploymentName = builder.Configuration.GetValue<string>("AzureOpenAIApiKey") ?? throw new ArgumentNullException("AzureOpenAIApiKey");
+var deploymentName = builder.Configuration.GetValue<string>("AzureOpenAIDeploymentName") ?? throw new ArgumentNullException("AzureOpenAIDeploymentName");
 var endpoint = builder.Configuration.GetValue<string>("AzureOpenAIEndpoint") ?? throw new ArgumentNullException("AzureOpenAIEndpoint");
 var apiKey = builder.Configuration.GetValue<string>("AzureOpenAIApiKey") ?? throw new ArgumentNullException("AzureOpenAIApiKey");
 
