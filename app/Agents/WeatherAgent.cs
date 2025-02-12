@@ -59,7 +59,7 @@ namespace microsoft_agent_sk.Agents
             this._agent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromType<WeatherPlugin>(serviceProvider: sp));
         }
 
-        public async Task<FlightResponse> InvokeAgentAsync(string input)
+        public async Task<AgentResponse> InvokeAgentAsync(string input)
         {
             ChatMessageContent message = new(AuthorRole.User, input);
             this._chatHistory.Add(message);
@@ -77,7 +77,7 @@ namespace microsoft_agent_sk.Agents
                 var resultContent = sb.ToString();
                 Console.WriteLine("Agent Response:");
                 Console.WriteLine(resultContent);   
-                var result = JsonSerializer.Deserialize<FlightResponse>(resultContent);
+                var result = JsonSerializer.Deserialize<AgentResponse>(resultContent);
                 this.retryCount = 0;
                 return result;
             }

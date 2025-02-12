@@ -11,13 +11,14 @@ namespace microsoft_agent_sk.Helpers
         [JsonPropertyName("adaptive-card")]
         AdaptiveCard
     }
-    public class FlightResponse
+    public class AgentResponse
     {
         [JsonPropertyName("contentType")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public FlightResponseContentType ContentType { get; set; }
 
         [JsonPropertyName("content")]
+        [JsonConverter(typeof(JsonObjectToStringConverter))]
         [Description("The content of the response, may be plain text, or JSON based adaptive card but must be a string.")]
         public string Content { get; set; }
     }

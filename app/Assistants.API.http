@@ -1,4 +1,4 @@
-@baseUrl = https://localhost:32771
+@baseUrl = https://localhost:32769
 
 
 // C1
@@ -7,5 +7,11 @@ POST {{baseUrl}}/api/agent
 Content-Type: application/json
 
 {
+  "messages": [
+    {
+      "role": "user",
+      "content": "What's the weather forecast for Mankato, MN?"
+    }
+  ]
 }
 

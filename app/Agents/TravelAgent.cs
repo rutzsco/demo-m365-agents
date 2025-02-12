@@ -61,7 +61,7 @@ namespace microsoft_agent_sk.Agents
             this._agent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromType<TimePlugin>());
         }
 
-        public async Task<FlightResponse> InvokeAgentAsync(string input)
+        public async Task<AgentResponse> InvokeAgentAsync(string input)
         {
             ChatMessageContent message = new(AuthorRole.User, input);
             this._chatHistory.Add(message);
@@ -77,7 +77,7 @@ namespace microsoft_agent_sk.Agents
             try
             {
                 var resultContent = sb.ToString();
-                var result = JsonSerializer.Deserialize<FlightResponse>(resultContent);
+                var result = JsonSerializer.Deserialize<AgentResponse>(resultContent);
                 this.retryCount = 0;
                 return result;
             }
