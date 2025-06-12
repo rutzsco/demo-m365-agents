@@ -28,15 +28,17 @@ namespace microsoft_agent_sk
         protected async Task MessageActivityAsync(ITurnContext turnContext, ITurnState turnState, CancellationToken cancellationToken)
         {
             await turnContext.StreamingResponse.QueueInformativeUpdateAsync("Thinking...", cancellationToken);
-
+            await Task.Yield();
             // Invoke the WeatherForecastAgent to process the message
             var forecastResponse = await _agent.InvokeAgentAsync(turnContext.Activity.Text);
+
             //if (forecastResponse == null)
             //{
             //    await turnContext.SendActivityAsync(MessageFactory.Text("Sorry, I couldn't get the weather forecast at the moment."), cancellationToken);
             //    return;
             //}
-
+            turnContext.StreamingResponse.QueueTextChunk("HI");
+            turnContext.StreamingResponse.QueueTextChunk("HI");
             // Create a response message based on the response content type from the WeatherForecastAgent
             IActivity response = forecastResponse.ContentType switch
             {
@@ -47,7 +49,7 @@ namespace microsoft_agent_sk
                 }),
                 _ => MessageFactory.Text(forecastResponse.Content),
             };
-
+            await Task.Yield();
             turnContext.StreamingResponse.FinalMessage = response;
             await turnContext.StreamingResponse.EndStreamAsync(cancellationToken); // End the streaming response
         }
