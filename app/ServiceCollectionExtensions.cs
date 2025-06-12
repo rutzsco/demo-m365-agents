@@ -9,7 +9,7 @@ namespace microsoft_agent_sk
     {
         public static IHostApplicationBuilder AddBot<TAgent, THandler>(this IHostApplicationBuilder builder) where TAgent : IAgent where THandler : class, TAgent
         {
-            // builder.Services.AddBotAspNetAuthentication(builder.Configuration);
+            //builder.Services.AddAgentAspNetAuthentication(builder.Configuration);
 
             builder.AddAgentApplicationOptions();
 
