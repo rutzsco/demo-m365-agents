@@ -1,4 +1,5 @@
 using Microsoft.Agents.Builder;
+using Microsoft.Agents.Hosting.AspNetCore;
 using Microsoft.SemanticKernel;
 using microsoft_agent_sk;
 using microsoft_agent_sk.Agents;
@@ -30,7 +31,7 @@ builder.Services.AddAzureOpenAIChatCompletion(
     apiKey: apiKey);
 
 builder.Services.AddTransient<WeatherAgent>();
-
+builder.AddAgentApplicationOptions();
 builder.AddBot<IAgent, BotHandler>();
 
 var app = builder.Build();
