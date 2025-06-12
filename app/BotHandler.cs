@@ -27,6 +27,8 @@ namespace microsoft_agent_sk
 
         protected async Task MessageActivityAsync(ITurnContext turnContext, ITurnState turnState, CancellationToken cancellationToken)
         {
+            await turnContext.StreamingResponse.QueueInformativeUpdateAsync("Thinking...", cancellationToken);
+
             // Invoke the WeatherForecastAgent to process the message
             var forecastResponse = await _agent.InvokeAgentAsync(turnContext.Activity.Text);
             if (forecastResponse == null)
@@ -56,7 +58,7 @@ namespace microsoft_agent_sk
             {
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    await turnContext.SendActivityAsync(MessageFactory.Text("Hello and Welcome! I'm here to help with all your SAP needs!"), cancellationToken);
+                    await turnContext.SendActivityAsync(MessageFactory.Text("Hello and Welcome! I am here to answer questions on the weather!"), cancellationToken);
                 }
             }
         }
