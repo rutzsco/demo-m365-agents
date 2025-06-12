@@ -1,30 +1,21 @@
 ﻿using Microsoft.Agents.Authentication;
+using Microsoft.Agents.Builder;
 using Microsoft.Agents.Hosting.AspNetCore;
-using Microsoft.Agents.Protocols.Adapter;
-using Microsoft.Agents.Protocols.Connector;
-using Microsoft.Agents.Protocols.Primitives;
+using Microsoft.Agents.Storage;
 
 namespace microsoft_agent_sk
 {
     public static class ServiceCollectionExtensions
     {
-        public static IHostApplicationBuilder AddBot<TBot, THandler>(this IHostApplicationBuilder builder)
-            where TBot : IBot
-            where THandler : class, TBot
+        public static IHostApplicationBuilder AddBot<TAgent, THandler>(this IHostApplicationBuilder builder) where TAgent : IAgent where THandler : class, TAgent
         {
             // builder.Services.AddBotAspNetAuthentication(builder.Configuration);
 
-            // Add Connections object to access configured token connections.
-            builder.Services.AddSingleton<IConnections, ConfigurationConnections>();
+            builder.AddAgentApplicationOptions();
 
-            // Add factory for ConnectorClient and UserTokenClient creation
-            builder.Services.AddSingleton<IChannelServiceClientFactory, RestChannelServiceClientFactory>();
+            builder.AddAgent<THandler>();
 
-            // Add the BotAdapter, this is the default adapter that works with Azure Bot Service and Activity Protocol.
-            builder.Services.AddCloudAdapter();
-
-            // Add the Bot,  this is the primary worker for the bot. 
-            builder.Services.AddTransient<IBot, THandler>();
+            builder.Services.AddSingleton<IStorage, MemoryStorage>();
 
             return builder;
         }

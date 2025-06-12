@@ -1,9 +1,5 @@
-﻿using Microsoft.Agents.Hosting.AspNetCore;
-using Microsoft.Agents.Protocols.Primitives;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using microsoft_agent_sk.Agents;
-using MinimalApi.Services.Skills;
 
 namespace microsoft_agent_sk.Controllers
 {

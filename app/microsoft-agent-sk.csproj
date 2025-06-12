@@ -19,8 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.13.1" />
-    <PackageReference Include="Microsoft.Agents.Authentication.Msal" Version="0.1.26" />
-    <PackageReference Include="Microsoft.Agents.Hosting.AspNetCore" Version="0.1.26" />
+    <PackageReference Include="Microsoft.Agents.Authentication.Msal" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Agents.Hosting.AspNetCore" Version="1.0.1" />
     <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.1.0-preview" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.32.0-alpha" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.32.0-alpha" />

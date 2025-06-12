@@ -1,7 +1,7 @@
-using microsoft_agent_sk;
-using Microsoft.Agents.Protocols.Primitives;
-using microsoft_agent_sk.Agents;
+using Microsoft.Agents.Builder;
 using Microsoft.SemanticKernel;
+using microsoft_agent_sk;
+using microsoft_agent_sk.Agents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +31,7 @@ builder.Services.AddAzureOpenAIChatCompletion(
 
 builder.Services.AddTransient<WeatherAgent>();
 
-builder.AddBot<IBot, BotHandler>();
+builder.AddBot<IAgent, BotHandler>();
 
 var app = builder.Build();
 

@@ -1,20 +1,31 @@
-﻿using Microsoft.Agents.Protocols.Adapter;
-using Microsoft.Agents.Protocols.Primitives;
+﻿
+using AdaptiveCards;
+using Microsoft.Agents.Builder;
+using Microsoft.Agents.Builder.App;
+using Microsoft.Agents.Builder.State;
+using Microsoft.Agents.Core.Models;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
 using microsoft_agent_sk.Agents;
 using microsoft_agent_sk.Helpers;
+using System.Text;
 
 namespace microsoft_agent_sk
 {
-    public class BotHandler : ActivityHandler
+    public class BotHandler : AgentApplication
     {
         private readonly WeatherAgent _agent;
 
-        public BotHandler(WeatherAgent Agent)
+ 
+        public BotHandler(AgentApplicationOptions options, WeatherAgent agent) : base(options)
         {
-            _agent = Agent;
+            _agent = agent ?? throw new ArgumentNullException(nameof(agent));
+
+            OnConversationUpdate(ConversationUpdateEvents.MembersAdded, WelcomeMessageAsync);
+            OnActivity(ActivityTypes.Message, MessageActivityAsync, rank: RouteRank.Last);
         }
 
-        protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        protected async Task MessageActivityAsync(ITurnContext turnContext, ITurnState turnState, CancellationToken cancellationToken)
         {
             // Invoke the WeatherForecastAgent to process the message
             var forecastResponse = await _agent.InvokeAgentAsync(turnContext.Activity.Text);
@@ -39,15 +50,15 @@ namespace microsoft_agent_sk
             await turnContext.SendActivityAsync(response, cancellationToken);
         }
 
-        protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
+        protected async Task WelcomeMessageAsync(ITurnContext turnContext, ITurnState turnState, CancellationToken cancellationToken)
         {
-            // When someone (or something) connects to the bot, a MembersAdded activity is received.
-            // For this sample,  we treat this as a welcome event, and send a message saying hello.
-            // For more details around the membership lifecycle, please see the lifecycle documentation.
-            IActivity message = MessageFactory.Text("Hello. I'm your weather agent. I'm here to help!");
-
-            // Send the response message back to the user. 
-            await turnContext.SendActivityAsync(message, cancellationToken);
+            foreach (ChannelAccount member in turnContext.Activity.MembersAdded)
+            {
+                if (member.Id != turnContext.Activity.Recipient.Id)
+                {
+                    await turnContext.SendActivityAsync(MessageFactory.Text("Hello and Welcome! I'm here to help with all your SAP needs!"), cancellationToken);
+                }
+            }
         }
     }
 }

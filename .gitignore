@@ -399,3 +399,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 app/appsettings.Development.json
+appPackage/app.zip
+appPackage/color.png
+appPackage/manifest.json
+appPackage/outline.png
